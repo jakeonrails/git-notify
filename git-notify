@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# how we want to extract the variables from the commit message.
+format_name="--format=%cn"
+format_when="--format=%cd"
+format_summary="--format=%s"
+format_body="--format=%b"
+
+# what repository do we want to watch.
+repository="origin/master"
+latest_revision="none"
+
+# loop forever, need to kill the process.
+while [ 1 ]; do
+
+    # get the latest revision SHA.
+    current_revision=`git rev-parse $repository`
+
+    # if we haven't seen that one yet, then we know there's new stuff.
+    if [ $latest_revision != $current_revision ]; then
+
+        # mark the newest revision as seen.
+        latest_revision=$current_revision
+
+        # extract the details from the log.
+        commit_name=`git log -1 $format_name $latest_revision`
+        commit_when=`git log -1 $format_when $latest_revision`
+        commit_summary=`git log -1 $format_summary $latest_revision`
+        commit_body=`git log -1 $format_body $latest_revision`
+
+        # notify the user of the commit.
+        summary="$commit_name committed to $repository $commit_when!"
+        body="$commit_summary\n\n$commit_body"
+        `notify-send "$summary" "$body"`
+
+    fi
+    sleep 60
+done
+
