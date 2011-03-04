@@ -2,7 +2,7 @@
 
 # how we want to extract the variables from the commit message.
 format_name="--format=%cn"
-format_when="--format=%cd"
+format_when="--format=%cr"
 format_summary="--format=%s"
 format_body="--format=%b"
 
