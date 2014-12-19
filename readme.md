@@ -10,9 +10,9 @@ Thus, git-notify was born!
 Usage:
 ----------
 
-    ~/code/some-git-repository $ git-notify &
+    ~/code/some-git-repository $ git-notify
 
-The ampersand (&) at the end tells your terminal to launch it in the background. If you want to kill it later, you can do:
+The script will run in the background. If you want to kill it later, you can do:
 
     ps aux | grep git-notify
 
