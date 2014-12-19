@@ -1,5 +1,6 @@
 #!/bin/bash
 
+function run {
 # how we want to extract the variables from the commit message.
 format_name="--format=%cn"
 format_when="--format=%cr"
@@ -42,4 +43,6 @@ while [ 1 ]; do
     fi
     sleep 60
 done
+}
 
+(run &)
