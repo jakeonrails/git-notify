@@ -34,6 +34,7 @@ while [ 1 ]; do
         body="$commit_summary\n\n$commit_body"
 	if [ "`uname`" == "Darwin" ]
 	then
+		say -v Daniel "Commit made to $repository"
 		command="osascript -e 'display notification \"$body\" with title \"$summary\"'"
 		eval $command
 	else
