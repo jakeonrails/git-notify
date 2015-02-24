@@ -7,13 +7,13 @@ format_when="--format=%cr"
 format_summary="--format=%s"
 format_body="--format=%b"
 
-# what repository do we want to watch.
+# what repository do we want to watch (default to origin/master)
 if [ -z "$1" ]; then
 	repository="origin/master"
 else
 	repository="$1"
 fi
-	latest_revision="none"
+latest_revision="none"
 
 # loop forever, need to kill the process.
 while [ 1 ]; do
@@ -49,4 +49,4 @@ while [ 1 ]; do
 done
 }
 
-(run &)
+(run $1 &)
