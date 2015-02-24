@@ -8,8 +8,12 @@ format_summary="--format=%s"
 format_body="--format=%b"
 
 # what repository do we want to watch.
-repository="origin/master"
-latest_revision="none"
+if [ -z "$1" ]; then
+	repository="origin/master"
+else
+	repository="$1"
+fi
+	latest_revision="none"
 
 # loop forever, need to kill the process.
 while [ 1 ]; do
@@ -34,7 +38,6 @@ while [ 1 ]; do
         body="$commit_summary\n\n$commit_body"
 	if [ "`uname`" == "Darwin" ]
 	then
-		say -v Daniel "Commit made to $repository"
 		command="osascript -e 'display notification \"$body\" with title \"$summary\"'"
 		eval $command
 	else
