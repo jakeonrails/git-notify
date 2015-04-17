@@ -14,12 +14,11 @@ Usage:
 
 The script will run in the background. If you want to kill it later, you can do:
 
-    ps aux | grep git-notify
+    ps aux | grep '[g]it-notify'
 
 Which will output something like:
 
     jake      9541  0.0  0.0  12012  1392 pts/3    S    12:54   0:00 /bin/bash ./git-notify
-    jake      9558  0.0  0.0   8952   876 pts/3    S+   12:55   0:00 grep --color=auto git-notify
 
 Note the first number in the list, 9541, that is the PID of the script. You can now terminate it like so:
 
