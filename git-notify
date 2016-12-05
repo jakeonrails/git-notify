@@ -44,6 +44,9 @@ while getopts ":b:t:avl" opt; do
     :)  echo "Required argument for option $OPTARG"
         exit 1
         ;;
+    ?)  echo "Unrecognized option $OPTARG"
+        exit 1
+        ;;
     esac
 done
 shift $((OPTIND-1))
