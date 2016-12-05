@@ -16,7 +16,7 @@ async=false
 refresh_delay=60
 verbose=false
 
-while getopts ":b:t:av" opt; do
+while getopts ":b:t:avl" opt; do
     case "$opt" in
     b)  branch="$OPTARG"
         ;;
@@ -29,6 +29,17 @@ while getopts ":b:t:av" opt; do
     a)  async=true
         ;;
     v)  verbose=true
+        ;;
+    l)  curr_comm=$(ps -o command -p "$$" | grep -v COMMAND)
+        bg_jobs=$(ps -eaf | grep -v "$curr_comm" | grep $0 | grep -v "grep $0" || true)
+        bg_count=$(echo "$bg_jobs" | sed '/^\s*$/d' | wc -l | tr -d ' ')
+
+        echo "Running background processes: $bg_count"
+        if [ $bg_count -gt 0 ]; then
+            ps -fp 0 | head -n 1 # print ps column names header
+            echo "$bg_jobs"
+        fi
+        exit 0
         ;;
     :)  echo "Required argument for option $OPTARG"
         exit 1
