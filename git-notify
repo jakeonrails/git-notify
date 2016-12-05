@@ -8,6 +8,15 @@ function log {
     fi
 }
 
+function ps_jobs {
+    local curr_comm=$(ps -o command -p "$$" | grep -v COMMAND)
+    ps $2 | grep -v "$curr_comm" | grep "$1" | grep -v "grep $1" || true
+}
+
+function count {
+    echo "$bg_jobs" | sed '/^\s*$/d' | wc -l | tr -d ' '
+}
+
 # Command Line Options
 
 # What branch do we want to watch (default to origin/master)
@@ -16,7 +25,7 @@ async=false
 refresh_delay=60
 verbose=false
 
-while getopts ":b:t:avl" opt; do
+while getopts ":b:t:avlk" opt; do
     case "$opt" in
     b)  branch="$OPTARG"
         ;;
@@ -30,14 +39,25 @@ while getopts ":b:t:avl" opt; do
         ;;
     v)  verbose=true
         ;;
-    l)  curr_comm=$(ps -o command -p "$$" | grep -v COMMAND)
-        bg_jobs=$(ps -eaf | grep -v "$curr_comm" | grep $0 | grep -v "grep $0" || true)
-        bg_count=$(echo "$bg_jobs" | sed '/^\s*$/d' | wc -l | tr -d ' ')
-
-        echo "Running background processes: $bg_count"
+    l)  bg_jobs=$(ps_jobs "$0" "-eaf")
+        bg_count=$(count "$bg_jobs")
+        echo "Running background jobs: $bg_count"
         if [ $bg_count -gt 0 ]; then
             ps -fp 0 | head -n 1 # print ps column names header
             echo "$bg_jobs"
+        fi
+        exit 0
+        ;;
+    k)  curr_comm=$(ps -o command -p "$$" | grep -v COMMAND)
+        bg_jobs=$(ps_jobs "$0" "-eao pid,command" | cut -f 1 -d ' ')
+        bg_count=$(count "$bg_jobs")
+        if [ $bg_count -eq 0 ]; then
+            echo "No jobs running!"
+        else
+            echo -n "Killing $bg_count jobs: "
+            echo $bg_jobs
+            kill $bg_jobs
+            echo "Success!"
         fi
         exit 0
         ;;
