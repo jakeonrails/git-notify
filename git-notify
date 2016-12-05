@@ -6,10 +6,13 @@ set -eu
 
 # What branch do we want to watch (default to origin/master)
 branch="origin/master"
+async=false
 
-while getopts ":b:" opt; do
+while getopts ":b:a" opt; do
     case "$opt" in
     b)  branch="$OPTARG"
+        ;;
+    a)  async=true
         ;;
     :)  echo "Required argument for option $OPTARG"
         exit 1
@@ -66,7 +69,12 @@ done
 # Test git repository and start execution
 
 if git rev-parse --git-dir > /dev/null 2>&1; then
-	(run)
+    if [ $async = true ]; then
+        run &
+        echo "Started background job with PID $!"
+    else
+        (run)
+    fi
 else
 	echo "Error: not a git repository"
 fi
