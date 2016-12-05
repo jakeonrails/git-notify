@@ -6,9 +6,12 @@
 # What branch do we want to watch (default to origin/master)
 branch="origin/master"
 
-while getopts "b:" opt; do
+while getopts ":b:" opt; do
     case "$opt" in
     b)  branch="$OPTARG"
+        ;;
+    :)  echo "Required argument for option $OPTARG"
+        exit 1
         ;;
     esac
 done
