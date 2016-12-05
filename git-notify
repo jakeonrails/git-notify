@@ -17,10 +17,13 @@ function count {
     echo "$bg_jobs" | sed '/^\s*$/d' | wc -l | tr -d ' '
 }
 
+function git-curr-branch {
+    git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
+}
+
 # Command Line Options
 
-# What branch do we want to watch (default to origin/master)
-branch="origin/master"
+branch=$(git-curr-branch || echo "origin/master")
 async=false
 refresh_delay=60
 verbose=false
@@ -81,6 +84,7 @@ format_summary="--format=%s"
 format_body="--format=%b"
 
 latest_revision="none"
+echo "Watching branch $branch"
 
 # loop forever, need to kill the process.
 while [ 1 ]; do
