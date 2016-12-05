@@ -2,17 +2,33 @@
 
 set -eu
 
+function log {
+    if [ $verbose = true ]; then
+        (>&2 echo "[$(date)]: $@")
+    fi
+}
+
 # Command Line Options
 
 # What branch do we want to watch (default to origin/master)
 branch="origin/master"
 async=false
+refresh_delay=60
+verbose=false
 
-while getopts ":b:a" opt; do
+while getopts ":b:t:av" opt; do
     case "$opt" in
     b)  branch="$OPTARG"
         ;;
+    t)  refresh_delay="$OPTARG"
+        if ! [[ $refresh_delay =~ ^[0-9]+$ ]]; then
+            echo "Refresh delay must be a number (of seconds)"
+            exit 1
+        fi
+        ;;
     a)  async=true
+        ;;
+    v)  verbose=true
         ;;
     :)  echo "Required argument for option $OPTARG"
         exit 1
@@ -40,7 +56,7 @@ while [ 1 ]; do
 
     # if we haven't seen that one yet, then we know there's new stuff.
     if [ $latest_revision != $current_revision ]; then
-
+        log "Changed! New revision: $current_revision"
         # mark the newest revision as seen.
         latest_revision=$current_revision
 
@@ -62,7 +78,7 @@ while [ 1 ]; do
 	fi
 
     fi
-    sleep 60
+    sleep "$refresh_delay"
 done
 }
 
