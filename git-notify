@@ -1,5 +1,21 @@
 #!/bin/bash
 
+
+# Command Line Options
+
+# What branch do we want to watch (default to origin/master)
+branch="origin/master"
+
+while getopts "b:" opt; do
+    case "$opt" in
+    b)  branch="$OPTARG"
+        ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# Main watch function
+
 function run {
 # how we want to extract the variables from the commit message.
 format_name="--format=%cn"
@@ -7,12 +23,6 @@ format_when="--format=%cr"
 format_summary="--format=%s"
 format_body="--format=%b"
 
-# what repository do we want to watch (default to origin/master)
-if [ -z "$1" ]; then
-	repository="origin/master"
-else
-	repository="$1"
-fi
 latest_revision="none"
 
 # loop forever, need to kill the process.
@@ -41,7 +51,7 @@ while [ 1 ]; do
 		command="osascript -e 'display notification \"$body\" with title \"$summary\"'"
 		eval $command
 	else
-	        `notify-send "$summary" "$body"` 
+	        `notify-send "$summary" "$body"`
 	fi
 
     fi
@@ -49,8 +59,10 @@ while [ 1 ]; do
 done
 }
 
+# Test git repository and start execution
+
 if git rev-parse --git-dir > /dev/null 2>&1; then
-	(run $1 &)
+	(run &)
 else
 	echo "Error: not a git repository"
 fi
