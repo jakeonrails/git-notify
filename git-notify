@@ -107,14 +107,12 @@ while [ 1 ]; do
         # notify the user of the commit.
         summary="$commit_name committed to $repository $commit_when!"
         body="$commit_summary\n\n$commit_body"
-	if [ "`uname`" == "Darwin" ]
-	then
-		command="osascript -e 'display notification \"$body\" with title \"$summary\"'"
-		eval $command
-	else
-	        `notify-send "$summary" "$body"`
-	fi
-
+    	if [ "`uname`" == "Darwin" ]; then
+    		command="osascript -e 'display notification \"$body\" with title \"$summary\"'"
+    		eval $command
+    	else
+            `notify-send "$summary" "$body"`
+    	fi
     fi
     sleep "$refresh_delay"
 done
