@@ -69,6 +69,14 @@ echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/
     ```bash
     kill 9541
     ```
+    
+### -l
+> list
+* List all currently running/backgrounded `git-notify` processes.
+
+### -k
+> kill
+* Kill all currently running/backgrounded `git-notify` processes (which would be visible via the `-l` flag
 
 ### Original Tool
 > Author creds: Jake Moffatt, jakeonrails@gmail.com
