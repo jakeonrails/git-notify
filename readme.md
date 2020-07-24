@@ -1,32 +1,74 @@
-git-notify
-========
+# git-notify
 
 This little bash script will watch your origin/master for updates every 60 seconds and uses notify-send to alert you of new commits.
 
-I asked [this question](http://stackoverflow.com/questions/5082001/is-there-a-tool-to-watch-a-remote-git-repository-on-ubuntu-and-do-popup-notificat) on StackOverflow to find out if there was a tool to notify me of commits to remote git repositories, and the answer came back no!
+Born after lacking answers after asking about [any tools that can notify about commits to remote git repos on StackOverflow](http://stackoverflow.com/questions/5082001/is-there-a-tool-to-watch-a-remote-git-repository-on-ubuntu-and-do-popup-notificat).
 
 Thus, git-notify was born!
 
-Usage:
-----------
+## Installation
+Just download `git-notify` and ensure it's folder is located in your path:
 
-    ~/code/some-git-repository $ git-notify
+```bash
+git clone git@github.com:jakeonrails/git-notify.git
+# If you use bash
+echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.bashrc && source ~/.bashrc
+# If you use zshrc
+echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/.zshrc
+```
 
-The script will run in the background. If you want to kill it later, you can do:
+## Usage
 
+    ######################################################
+    # git-notify: Simple bash script to watch git repos and use desktop notifications upon detection of new commits.
+    #
+    # USAGE: ./git-notify [OPTIONS]
+    #  Alternatively, add git-notify to your path by specifying the path to the repo in your shell's config:
+    #   * echo 'export PATH=/your/full/path/to/git-notify:$PATH' >> ~/.zshrc
+    #   * echo 'export PATH=/your/full/path/to/git-notify:$PATH' >> ~/.bashrc
+    #  And then use just: "git-notify [OPTIONS]"
+    #
+    # OPTIONS:
+    #  -b <BRANCH>:         branch        Specifies the branch to run against (default origin/master)
+    #  -r <REPOSITORY>:     repository    Specify what repository to watch (default origin/master)
+    #  -t <TIME>:           refresh_delay Time to wait inbetween checking, in seconds (default 60)
+    #  -a:                  async         Runs the job in the background (via &)
+    #  -v:                  verbose       Set verbose logging on (adds "[date]: " prefix)
+    #  -l:                  bg_jobs       Find all git-notify background jobs currently running
+    #  -k:                  kill          Kill all backgrounded git-notify jobs
+    #  -h:                  help          Print help and exit
+    ######################################################
+
+
+## Options
+
+### -b BRANCH, branch
+Specify which branch to watch, default `origin/master`.
+
+### -r REPOSITORY, repository
+Specify which remote repository to watch, default `origin/master`
+
+### -a, async
+If you use the `-a` option, the script will run in the background. If you want to kill it later, you can do:
+
+    ```bash
     ps aux | grep '[g]it-notify'
+    # Or, using git-notify to search for any instances of itself running:
+    git-notify -l
+    ```
 
-Which will output something like:
+    Which will output something like:
 
-    jake      9541  0.0  0.0  12012  1392 pts/3    S    12:54   0:00 /bin/bash ./git-notify
+    ```bash
+        USER      9541  0.0  0.0  12012  1392 pts/3    S    12:54   0:00 /bin/bash ./git-notify
+    ```
 
-Note the first number in the list, 9541, that is the PID of the script. You can now terminate it like so:
+    Note the first number in the list, 9541, that is the PID of the script. You can now terminate it like so:
 
+    ```bash
     kill 9541
+    ```
 
-Installation:
-------------
-Just download git-notify and put it somewhere in your path.
 
 Jake Moffatt, jakeonrails@gmail.com
 
