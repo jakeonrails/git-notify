@@ -42,14 +42,15 @@ echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/
 
 ## Options
 
-### -b BRANCH, branch
-Specify which branch to watch, default `origin/master`.
+### -b \<BRANCH\>
+* Specify which branch to watch, default `origin/master`.
 
-### -r REPOSITORY, repository
-Specify which remote repository to watch, default `origin/master`
+### -r \<REPOSITORY\>
+* Specify which remote repository to watch, default `origin/master`
 
-### -a, async
-If you use the `-a` option, the script will run in the background. If you want to kill it later, you can do:
+### -a
+> async
+* If you use the `-a` option, the script will run in the background. If you want to kill it later, you can do:
 
     ```bash
     ps aux | grep '[g]it-notify'
@@ -69,6 +70,6 @@ If you use the `-a` option, the script will run in the background. If you want t
     kill 9541
     ```
 
-
-Jake Moffatt, jakeonrails@gmail.com
+### Original Tool
+> Author creds: Jake Moffatt, jakeonrails@gmail.com
 
