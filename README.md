@@ -2,9 +2,7 @@
 
 This little bash script will watch your origin/master for updates every 60 seconds and uses notify-send to alert you of new commits.
 
-Born after lacking answers after asking about [any tools that can notify about commits to remote git repos on StackOverflow](http://stackoverflow.com/questions/5082001/is-there-a-tool-to-watch-a-remote-git-repository-on-ubuntu-and-do-popup-notificat).
-
-Thus, git-notify was born!
+Born from lacking answers after asking about [any tools that can notify about commits to remote git repos on StackOverflow](http://stackoverflow.com/questions/5082001/is-there-a-tool-to-watch-a-remote-git-repository-on-ubuntu-and-do-popup-notificat).
 
 ## Installation
 Just download `git-notify` and ensure it's folder is located in your path:
