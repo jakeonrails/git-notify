@@ -20,7 +20,7 @@ echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/
     ######################################################
     # git-notify: Simple bash script to watch git repos and use desktop notifications upon detection of new commits.
     #
-    # USAGE: ./git-notify [OPTIONS]
+    # USAGE: ./path/to/git-notify [OPTIONS]
     #  Alternatively, add git-notify to your path by specifying the path to the repo in your shell's config:
     #   * echo 'export PATH=/your/full/path/to/git-notify:$PATH' >> ~/.zshrc
     #   * echo 'export PATH=/your/full/path/to/git-notify:$PATH' >> ~/.bashrc
@@ -37,6 +37,7 @@ echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/
     #  -h:                  help          Print help and exit
     ######################################################
 
+Intended to be run from the base of a local cloned Github repository you are interested in monitoring.
 
 ## Options
 
