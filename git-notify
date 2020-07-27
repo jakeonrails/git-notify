@@ -159,10 +159,8 @@ function run {
             # notify the user of the commit.
             summary="$commit_name committed to $REPOSITORY $commit_when!"
             body="$commit_summary\n\n$commit_body"
-            subtitle=""
             if [ "`uname`" == "Darwin" ]; then
                 command="osascript -e 'display notification \"$body\" with title \"$summary\"'"
-                #command="osascript -e 'tell app \"System Events\" to display dialog \"$body\" with title \"$summary\"'" # subtitle \"$subtitle\"'"
                 eval $command
             else
                 `notify-send "$summary" "$body"`
