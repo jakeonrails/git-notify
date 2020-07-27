@@ -67,7 +67,7 @@ echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/
     ```bash
     kill 9541
     ```
-    
+
 ### -l
 > list
 * List all currently running/backgrounded `git-notify` processes.
@@ -76,6 +76,22 @@ echo "export PATH=/your/full/path/to/git-notify:\$PATH" >> ~/.zshrc && source ~/
 > kill
 * Kill all currently running/backgrounded `git-notify` processes (which would be visible via the `-l` flag
 
-### Original Tool
+## Changing Notifcation Type (OSX)
+If you want to change the AppleScript notifcation type, that is a setting that is controlled in your `System Preferences --> Notifications` tab. The git-notify will use the Script Editor application, so you should modify those settings.
+
+By default, **Script Editor** uses the "Banners" type message. Switching to the "Alerts" tab will allow for notifcations that have a "close" button to be dismissed individually.
+
+![notification-prefs-mac](./res/appleScriptNotifPrefs.png)
+
+### Banners type
+
+![banner-notif-type](./res/banner-notif-type-mac.png)
+
+### Alerts type
+
+![alert-notif-type](./res/alert-notif-type-mac.png)
+
+
+#### Original tool
 > Author creds: Jake Moffatt, jakeonrails@gmail.com
 
